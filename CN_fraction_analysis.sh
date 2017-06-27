@@ -23,3 +23,9 @@ done
 
 # Extract the same family name from previous two outputs and merge them together
 awk 'FNR==NR{a[$1]=$2;next} ($1 in a) {print $1 "\t" $2 "\t" a[$1]}' length_$i total_overlap_$i > fraction_length_$i
+
+# Calculate the proportion for each family that overlapped with genome
+for i in fraction_length_*
+do
+awk '{prop=$2/$3}{print $0 "\t" prop}' $i > prop_$i
+done
